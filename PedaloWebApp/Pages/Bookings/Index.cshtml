@@ -42,7 +42,7 @@
                     @item.StartDate.ToString("yyyy-MM-dd HH:mm:ss")
                 </td>
                 <td>
-                    @(item.EndDate != null ? item.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "n/a")
+                    @(item.EndDate != null ? item.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.BookingId">

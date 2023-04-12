@@ -10,4 +10,32 @@
     <a asp-page="./Bookings/Create">
         <input type="button" value="Quick Create Booking" />
     </a>
+</div><br>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1em;" class="row">
+    @foreach (var item in Model.Pedaloes)
+    {
+        <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:1em; border-radius: 5px" class="col-3">
+            <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+            <p>in @Html.DisplayFor(modelItem => item.Color) - Capacity: @Html.DisplayFor(modelItem => item.Capacity)</p>
+            <p>@Html.DisplayFor(modelItem => item.HourlyRate) Fr. per hour</p>
+            <a href="./Pedaloes/index">
+                <input type="button" value="🚤" />
+            </a>
+        </div>
+    }
+</div>
+<br>
+<br>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1em;" class="row">
+    @foreach (var item in Model.Pedaloes)
+    {
+        <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:1em; border-radius: 5px" class="col-3">
+            <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+            <p>in @Html.DisplayFor(modelItem => item.Color) - Capacity: @Html.DisplayFor(modelItem => item.Capacity)</p>
+            <p>@Html.DisplayFor(modelItem => item.HourlyRate) Fr. per hour</p>
+            <a href="./Pedaloes/index">
+                <input type="button" value="🚤" />
+            </a>
+        </div>
+    }
 </div>

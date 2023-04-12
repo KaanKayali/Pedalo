@@ -125,6 +125,14 @@
             context.Pedaloes.Add(pedalo3);
             context.SaveChanges();
 
+            var passenger1 = new Passenger
+            {
+                Firstname = "Rivella",
+                Lastname = "Burger",
+            };
+            context.Passengers.Add(passenger1);
+            context.SaveChanges();
+
             context.Bookings.Add(new Booking { CustomerId = customer1.CustomerId, PedaloId = pedalo2.PedaloId, StartDate = new DateTime(2016, 7, 25, 09, 30, 00), EndDate = new DateTime(2016, 7, 25, 10, 30, 00) });
             context.Bookings.Add(new Booking { CustomerId = customer2.CustomerId, PedaloId = pedalo1.PedaloId, StartDate = new DateTime(2016, 7, 25, 10, 10, 00), EndDate = new DateTime(2016, 7, 25, 10, 50, 00) });
             context.Bookings.Add(new Booking { CustomerId = customer3.CustomerId, PedaloId = pedalo3.PedaloId, StartDate = new DateTime(2016, 7, 25, 11, 00, 00), EndDate = new DateTime(2016, 7, 25, 12, 10, 00) });
