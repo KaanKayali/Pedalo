@@ -39,6 +39,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.HourlyRate)
             </td>
+            <td>
+                    <a asp-page="./Edit" asp-route-id="@item.PedaloId">
+                        <input type="button" value="Edit" />
+                    </a>
+            </td>
+                <td>
+                    <a asp-page="./Delete" asp-route-id="@item.PedaloId">
+                        <input type="button" value="Delete" />
+                    </a>
+                </td>
         </tr>
     }
     </tbody>

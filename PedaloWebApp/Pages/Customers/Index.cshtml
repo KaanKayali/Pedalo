@@ -35,7 +35,14 @@
                     @Html.DisplayFor(modelItem => item.BirthdayDate)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.CustomerId">Edit</a>
+                    <a asp-page="./Edit" asp-route-id="@item.CustomerId">
+                        <input type="button" value="Edit" />
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="./Delete" asp-route-id="@item.CustomerId">
+                        <input type="button" value="Delete" />
+                    </a>
                 </td>
             </tr>
         }

@@ -20,6 +20,6 @@
         Blue,
         Pink,
         Green,
-        Yellow,
+        Yellow
     }
 }

@@ -88,6 +88,13 @@
                 BirthdayDate = new DateTime(1970, 8, 1),
             };
             context.Customers.Add(customer8);
+            var customer9 = new Customer
+            {
+                FirstName = "evian",
+                LastName = "evain",
+                BirthdayDate = new DateTime(1970, 8, 1),
+            };
+            context.Customers.Add(customer9);
             context.SaveChanges();
 
             var pedalo1 = new Pedalo

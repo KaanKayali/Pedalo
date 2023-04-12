@@ -39,7 +39,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.BookingId">
+                        <input type="button" value="Edit" />
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="./Delete" asp-route-id="@item.BookingId">
+                        <input type="button" value="Delete" />
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
