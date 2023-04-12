@@ -1,8 +1,8 @@
 ﻿@page
-@model PedaloWebApp.Pages.Pedaloes.EditModel
+@model PedaloWebApp.Pages.Pedaloes.CreateModel
 @using PedaloWebApp.Core.Domain.Entities
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -27,15 +27,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Pedalo.Capacity" class="control-label"></label>
-                <input asp-for="Pedalo.Capacity" class="form-control" type="number" min="1" />
+                <input asp-for="Pedalo.Capacity" class="form-control" type="number" min="1"/>
             </div>
             <div class="form-group">
                 <label asp-for="Pedalo.HourlyRate" class="control-label"></label>
                 <input asp-for="Pedalo.HourlyRate" class="form-control" />
             </div>
             <div class="form-group">
-                <input asp-for="Pedalo.PedaloId" type="hidden" />
-                <input type="submit" value="Edit" class="btn btn-primary"/>
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -44,3 +43,4 @@
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
+

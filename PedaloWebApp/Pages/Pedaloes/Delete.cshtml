@@ -14,19 +14,19 @@
         <form method="post">
             <div class="form-group">
                 <label asp-for="Pedalo.Name" class="control-label"></label>
-                <input asp-for="Pedalo.Name" class="form-control" />
+                <input asp-for="Pedalo.Name" class="form-control" disabled/>
             </div>
             <div class="form-group">
                 <label asp-for="Pedalo.Color" class="control-label"></label>
-                <input asp-for="Pedalo.Color" class="form-control">
+                <input asp-for="Pedalo.Color" class="form-control" disabled>
             </div>
             <div class="form-group">
                 <label asp-for="Pedalo.Capacity" class="control-label"></label>
-                <input asp-for="Pedalo.Capacity" class="form-control" />
+                <input asp-for="Pedalo.Capacity" class="form-control" type="number" min="1" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="Pedalo.HourlyRate" class="control-label"></label>
-                <input asp-for="Pedalo.HourlyRate" class="form-control" />
+                <input asp-for="Pedalo.HourlyRate" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <input asp-for="Pedalo.PedaloId" type="hidden" />
