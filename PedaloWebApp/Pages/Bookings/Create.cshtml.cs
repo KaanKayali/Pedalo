@@ -33,14 +33,18 @@ namespace PedaloWebApp.Pages.Bookings
         public List<Customer> Customer { get; set; }
 
         [BindProperty]
-        public PassengerCreateModel Passenger { get; set; }
+        public List<Passenger> Passenger { get; set; }
+
+        [BindProperty]
+        public PassengerCreateModel Passengers { get; set; }
 
 
-        public IActionResult OnGet(Guid? id)
+        public IActionResult OnGet()
         {
             using var context = this.contextFactory.CreateContext();
             this.Pedalos = context.Pedaloes.OrderBy(x => x.Name).ThenBy(x => x.Color).ToList();
             this.Customer = context.Customers.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ToList();
+            this.Passenger = context.Passengers.OrderBy(x => x.Firstname).ThenBy(x => x.Lastname).ToList();
             return this.Page();
         }
 
@@ -48,7 +52,8 @@ namespace PedaloWebApp.Pages.Bookings
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Page();
+                //return this.Page();
+                
             }
 
             using var context = this.contextFactory.CreateContext();
@@ -66,13 +71,15 @@ namespace PedaloWebApp.Pages.Bookings
                 };
                 context.Bookings.Add(booking);
                 context.SaveChanges();
+                var pedalo = context.Pedaloes.Where(x => x.PedaloId == booking.PedaloId).Single();
+                return this.RedirectToPage("AddPassenger", new { bookingid = booking.BookingId, capacity = pedalo.Capacity });
+
             }
             catch (Exception)
             {
                 return this.RedirectToPage("/Error");
             }
 
-            return this.RedirectToPage("./Index");
         }
     }
 
@@ -89,8 +96,10 @@ namespace PedaloWebApp.Pages.Bookings
 
     public class PassengerCreateModel
     {
+        public Guid PassengerId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
 
     }
 }
+

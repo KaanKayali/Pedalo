@@ -18,6 +18,7 @@
         }
 
         public IReadOnlyList<Booking> Bookings { get; set; }
+        public IReadOnlyList<Pedalo> Pedalos { get; set; }
 
         public IActionResult OnGet()
         {
@@ -26,8 +27,10 @@
                 .Include(x => x.Customer)
                 .Include(x => x.Pedalo)
                 .ToList();
+            this.Pedalos = context.Pedaloes.ToList();
             return this.Page();
         }
+
     }
 }
 

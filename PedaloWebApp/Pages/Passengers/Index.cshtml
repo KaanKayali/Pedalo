@@ -8,9 +8,43 @@
 
 <table class="table">
     <thead>
-
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Passenger[0].Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Passenger[0].Lastname)
+            </th>
+            <th></th>
+            <th>
+                <a asp-page="./Create">
+                    <input type="button" value="Create" />
+                </a>
+            </th>
+        </tr>
     </thead>
     <tbody>
+        @foreach (var item in Model.Passenger)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.PassengerId">
+                        <input type="button" value="Edit" />
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="./Delete" asp-route-id="@item.PassengerId">
+                        <input type="button" value="Delete" />
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

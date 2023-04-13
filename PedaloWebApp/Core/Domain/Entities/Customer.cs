@@ -9,7 +9,6 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthdayDate { get; set; }
-
         public ICollection<Booking> Bookings { get; set; }
     }
 }

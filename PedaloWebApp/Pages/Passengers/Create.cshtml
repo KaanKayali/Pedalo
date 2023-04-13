@@ -1,51 +1,7 @@
 ﻿@page
-@model PedaloWebApp.Pages.Bookings.CreateModel
+@model PedaloWebApp.Pages.Passengers.CreateModel
 @{
     ViewData["Title"] = "Create";
-    /*<script>
-        let passengercount = 0;
-
-        function addPassenger() {
-            passengercount++;
-
-            let h2 = document.createElement("h2");
-
-            let div = document.createElement("div");
-            let form = document.createElement("form");
-            let divfirstname = document.createElement("div");
-            let divlastname = document.createElement("div");
-
-            let labelfirstsname = document.createElement("label");
-            let labellastname = document.createElement("label");
-            let firstnamepassenger = document.createElement("input");
-            let lastnamepassenger = document.createElement("input");
-
-            div.setAttribute("class", "col-md-4");
-            form.setAttribute("method", "post");
-            divfirstname.setAttribute("class", "form-group");
-
-            labelfirstsname.setAttribute("class", "control-label");
-            labelfirstsname.setAttribute("asp-for", "Passenger.Firstname");
-            labellastname.setAttribute("class", "control-label");
-            labellastname.setAttribute("asp-for", "Passenger.Lastname");
-            firstnamepassenger.setAttribute("class", "form-control");
-            firstnamepassenger.setAttribute("asp", "Passenger.Firstname");
-            lastnamepassenger.setAttribute("class", "form-control");
-            lastnamepassenger.setAttribute("asp", "Passenger.Lastname");
-            
-
-            document.body.appendChild(div);
-            div.appendChild(form);
-            form.appendChild(divfirstname);
-            form.appendChild(divlastname);
-
-            divfirstname.appendChild(labelfirstsname);
-            divfirstname.appendChild(firstnamepassenger);
-
-            divlastname.appendChild(labellastname);
-            divlastname.appendChild(lastnamepassenger);
-        }
-    </script>*/
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -56,56 +12,17 @@
     <div class="col-md-4">
         <form method="post">
             <div class="form-group">
-                <label asp-for="Booking.StartDate" class="control-label"></label>
-                <input asp-for="Booking.StartDate" class="form-control" />
+                <label asp-for="Passenger.Firstname" class="control-label"></label>
+                <input asp-for="Passenger.Firstname" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Booking.EndDate" class="control-label"></label>
-                <input asp-for="Booking.EndDate" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Booking.Pedalo" class="control-label"></label>
-                <select asp-for="Booking.PedaloId" class="form-control">
-                    @foreach (var item in Model.Pedalos)
-                    {
-                        <option value="@item.PedaloId">
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </option>
-                    }
-
-
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Booking.Customer" class="control-label"></label>
-                <select asp-for="Booking.CustomerId" class="form-control">
-                    @foreach (var item in Model.Customer)
-                    {
-                        <option value="@item.CustomerId">
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </option>
-                    }
-
-                </select>
+                <label asp-for="Passenger.Lastname" class="control-label"></label>
+                <input asp-for="Passenger.Lastname" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-    </div>
-    <div class="col-md-4">
-        <h3>Passengers</h3>
-        <div class="form-group">
-            <label asp-for="Passenger.Firstname" class="control-label"></label>
-            <input asp-for="Passenger.Firstname" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Passenger.Lastname" class="control-label"></label>
-            <input asp-for="Passenger.Lastname" class="form-control" />
-        </div>
-        <div class="form-group">
-            <input type="button" onclick="" value="Add passenger" class="btn btn-primary" />
-        </div>
     </div>
 </div>
 

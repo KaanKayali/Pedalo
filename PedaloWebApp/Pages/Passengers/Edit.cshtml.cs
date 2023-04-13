@@ -18,7 +18,7 @@
         }
 
         [BindProperty]
-        public PassengersEditModel Passengers { get; set; }
+        public PassengerEditModel Passenger { get; set; }
 
         public IActionResult OnGet(Guid? id)
         {
@@ -28,9 +28,9 @@
             }
 
             using var context = this.contextFactory.CreateReadOnlyContext();
-            this.Passengers = context.Passengers
+            this.Passenger = context.Passengers
                 .Where(m => m.PassengerId == id)
-                .Select(x => new PassengersEditModel
+                .Select(x => new PassengerEditModel
                 {
                     PassengerId = x.PassengerId,
                     Firstname = x.Firstname,
@@ -38,7 +38,7 @@
                 })
                 .FirstOrDefault();
 
-            if (this.Passengers == null)
+            if (this.Passenger == null)
             {
                 return this.NotFound();
             }
@@ -55,7 +55,7 @@
             }
 
             using var context = this.contextFactory.CreateContext();
-            var passenger = context.Passengers.FirstOrDefault(x => x.PassengerId == this.Passengers.PassengerId);
+            var passenger = context.Passengers.FirstOrDefault(x => x.PassengerId == this.Passenger.PassengerId);
             if (passenger == null)
             {
                 return this.NotFound();
@@ -63,9 +63,9 @@
 
             try
             {
-                passenger.PassengerId = this.Passengers.PassengerId;
-                passenger.Firstname = this.Passengers.Firstname;
-                passenger.Lastname = this.Passengers.Lastname;
+                passenger.PassengerId = this.Passenger.PassengerId;
+                passenger.Firstname = this.Passenger.Firstname;
+                passenger.Lastname = this.Passenger.Lastname;
 
                 context.SaveChanges();
             }
@@ -78,7 +78,7 @@
         }
     }
 
-    public class PassengersEditModel
+    public class PassengerEditModel
     {
         public Guid PassengerId { get; set; }
         public string Firstname { get; set; }

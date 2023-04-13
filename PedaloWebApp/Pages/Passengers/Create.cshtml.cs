@@ -1,4 +1,4 @@
-namespace PedaloWebApp.Pages.Bookings
+namespace PedaloWebApp.Pages.Passengers
 {
     using System;
     using System.Collections.Generic;
@@ -24,23 +24,11 @@ namespace PedaloWebApp.Pages.Bookings
         }
 
         [BindProperty]
-        public BookingCreateModel Booking { get; set; }
-
-        [BindProperty]
-        public List<Pedalo> Pedalos { get; set; }
-
-        [BindProperty]
-        public List<Customer> Customer { get; set; }
-
-        [BindProperty]
         public PassengerCreateModel Passenger { get; set; }
 
 
-        public IActionResult OnGet(Guid? id)
+        public IActionResult OnGet()
         {
-            using var context = this.contextFactory.CreateContext();
-            this.Pedalos = context.Pedaloes.OrderBy(x => x.Name).ThenBy(x => x.Color).ToList();
-            this.Customer = context.Customers.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ToList();
             return this.Page();
         }
 
@@ -55,16 +43,12 @@ namespace PedaloWebApp.Pages.Bookings
 
             try
             {
-                /*DateTime dateTime = this.Booking.StartDate;
-                DateTime newDateTime = DateTime.ParseExact(dateTime.ToString("yyyy/MM/dd"), "yyyy/MM/dd", null);*/
-
-                var booking = new Booking { 
-                    CustomerId = this.Booking.CustomerId,
-                    PedaloId = this.Booking.PedaloId,
-                    StartDate = this.Booking.StartDate,
-                    EndDate = this.Booking.EndDate
+                var passenger = new Passenger {
+                    PassengerId = this.Passenger.PassengerId,
+                    Firstname = this.Passenger.Firstname,
+                    Lastname = this.Passenger.Lastname
                 };
-                context.Bookings.Add(booking);
+                context.Passengers.Add(passenger);
                 context.SaveChanges();
             }
             catch (Exception)
@@ -76,21 +60,12 @@ namespace PedaloWebApp.Pages.Bookings
         }
     }
 
-    public class BookingCreateModel
-    {
-        public Guid BookingId { get; set; }
-        public Guid CustomerId { get; set; }
-        public Guid PedaloId { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public Pedalo Pedalo { get; set; }
-        public Customer Customer { get; set; }
-    }
-
     public class PassengerCreateModel
     {
+        public Guid PassengerId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
 
     }
 }
+

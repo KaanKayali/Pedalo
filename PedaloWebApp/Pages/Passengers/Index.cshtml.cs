@@ -17,12 +17,12 @@
             this.contextFactory = contextFactory;
         }
 
-        public IReadOnlyList<Passenger> Passengers { get; set; }
+        public IReadOnlyList<Passenger> Passenger { get; set; }
 
         public IActionResult OnGet()
         {
             using var context = this.contextFactory.CreateReadOnlyContext();
-            this.Passengers = context.Passengers.ToList();
+            this.Passenger = context.Passengers.ToList();
             return this.Page();
         }
     }

@@ -1,4 +1,4 @@
-namespace PedaloWebApp.Pages.Bookings
+namespace PedaloWebApp.Pages.Passengers
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace PedaloWebApp.Pages.Bookings
         }
 
         [BindProperty]
-        public BookingDeleteModel Booking { get; set; }
+        public PassengerDeleteModel Passenger { get; set; }
 
         public IActionResult OnGet(Guid? id)
         {
@@ -28,21 +28,17 @@ namespace PedaloWebApp.Pages.Bookings
             }
 
             using var context = this.contextFactory.CreateReadOnlyContext();
-            this.Booking = context.Bookings
-                .Where(m => m.BookingId == id)
-                .Select(x => new BookingDeleteModel
+            this.Passenger = context.Passengers
+                .Where(m => m.PassengerId == id)
+                .Select(x => new PassengerDeleteModel
                 {
-                    BookingId = x.BookingId,
-                    CustomerId = x.CustomerId,
-                    PedaloId = x.PedaloId,
-                    StartDate = x.StartDate,
-                    EndDate = x.EndDate,
-                    Pedalo = x.Pedalo,
-                    Customer = x.Customer,
+                    PassengerId = x.PassengerId,
+                    Firstname = x.Firstname,
+                    Lastname = x.Lastname
                 })
                 .FirstOrDefault();
 
-            if (this.Booking == null)
+            if (this.Passenger == null)
             {
                 return this.NotFound();
             }
@@ -59,15 +55,15 @@ namespace PedaloWebApp.Pages.Bookings
             }
 
             using var context = this.contextFactory.CreateContext();
-            var booking = context.Bookings.FirstOrDefault(x => x.BookingId == this.Booking.BookingId);
-            if (booking == null)
+            var passenger = context.Passengers.FirstOrDefault(x => x.PassengerId == this.Passenger.PassengerId);
+            if (passenger == null)
             {
                 return this.NotFound();
             }
 
             try
             {
-                context.Bookings.Remove(booking);
+                context.Passengers.Remove(passenger);
 
                 context.SaveChanges();
             }
@@ -80,14 +76,10 @@ namespace PedaloWebApp.Pages.Bookings
         }
     }
 
-    public class BookingDeleteModel
+    public class PassengerDeleteModel
     {
-        public Guid BookingId { get; set; }
-        public Guid CustomerId { get; set; }
-        public Guid PedaloId { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public Pedalo Pedalo { get; set; }
-        public Customer Customer { get; set; }
+        public Guid PassengerId { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
     }
 }

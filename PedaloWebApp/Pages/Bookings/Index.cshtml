@@ -22,10 +22,17 @@
                 @Html.DisplayNameFor(model => model.Bookings[0].EndDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Pedalos[0].Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pedalos[0].Capacity)
+            </th>
+            <th>
                 <a asp-page="./Create">
                     <input type="button" value="Create" />
                 </a>
             </th>
+
         </tr>
     </thead>
     <tbody>
@@ -43,6 +50,9 @@
                 </td>
                 <td>
                     @(item.EndDate != null ? item.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pedalo.Capacity)
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.BookingId">

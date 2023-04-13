@@ -1,52 +1,26 @@
 ﻿@page
-@model PedaloWebApp.Pages.Bookings.EditModel
+@model PedaloWebApp.Pages.Passengers.EditModel
 @{
     ViewData["Title"] = "Edit";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<h4>Bookings</h4>
+<h4>Passengers</h4>
 
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div class="form-group">
-                <label asp-for="Booking.StartDate" class="control-label"></label>
-                <input asp-for="Booking.StartDate" class="form-control" />
+                <label asp-for="Passenger.Firstname" class="control-label"></label>
+                <input asp-for="Passenger.Firstname" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Booking.EndDate" class="control-label"></label>
-                <input asp-for="Booking.EndDate" class="form-control" />
+                <label asp-for="Passenger.Lastname" class="control-label"></label>
+                <input asp-for="Passenger.Lastname" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Booking.Pedalo" class="control-label"></label>
-                <select asp-for="Booking.PedaloId" class="form-control">
-                    @foreach (var item in Model.Pedalos)
-                    {
-                        <option value="@item.PedaloId">
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </option>
-                    }
-                    
-                    
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Booking.Customer" class="control-label"></label>
-                <select asp-for="Booking.CustomerId" class="form-control">
-                    @foreach (var item in Model.Customer)
-                    {
-                        <option value="@item.CustomerId">
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </option>
-                    }
-
-
-                </select>
-            </div>
-            <div class="form-group">
-                <input asp-for="Booking.BookingId" type="hidden" />
+                <input asp-for="Passenger.PassengerId" type="hidden" />
                 <input type="submit" value="Edit" class="btn btn-primary"/>
             </div>
         </form>
