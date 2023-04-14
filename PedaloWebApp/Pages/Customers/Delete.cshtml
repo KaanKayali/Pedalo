@@ -33,12 +33,12 @@
                 <input asp-for="Customer.CustomerId" type="hidden" />
                 @if (Model.Customer.NumberOfBookings == 0)
                 {
-                    <input type="submit" value="Delete" class="btn btn-primary" enabled />
+                    <input type="submit" value="Delete" class="btn btn-secondary" enabled />
                 }
                 else
                 {
                     <p>Can not be deleted</p>
-                    <input type="submit" value="Delete" class="btn btn-primary" disabled />
+                    <input type="submit" value="Delete" class="btn btn-secondary" disabled />
                 }
             </div>
         </form>

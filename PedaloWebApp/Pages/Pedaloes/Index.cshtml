@@ -7,7 +7,7 @@
 
     <h1>@ViewData["Title"]</h1>
 
-<table class="table">
+<table class="table table-responsive-lg table-striped table-hover">
     <thead>
         <tr>
             <th>
@@ -24,7 +24,7 @@
             </th>
             <th>
                 <a asp-page="./Create">
-                    <input type="button" value="Create" />
+                    <input type="button" value="Create" class="btn btn-secondary" />
                 </a>
             </th>
         </tr>
@@ -47,12 +47,12 @@
             </td>
             <td>
                     <a asp-page="./Edit" asp-route-id="@item.PedaloId">
-                        <input type="button" value="Edit" />
+                        <input type="button" value="Edit" class="btn" />
                     </a>
             </td>
                 <td>
                     <a asp-page="./Delete" asp-route-id="@item.PedaloId">
-                        <input type="button" value="Delete" />
+                        <input type="button" value="Delete" class="btn" />
                     </a>
                 </td>
         </tr>

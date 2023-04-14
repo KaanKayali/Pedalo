@@ -29,18 +29,30 @@ namespace PedaloWebApp.Pages.Bookings
         [BindProperty]
         public List<Passenger> Passenger { get; set; }
 
+        [BindProperty]
+        public List<Customer> Customers { get; set; }
+
         [FromQuery(Name = "bookingid")]
         public Guid BookingId { get; set; }
 
         [BindProperty]
         public Guid[] PassangerId { get; set; }
 
-        [FromQuery(Name = "capacity")]
+        //[FromQuery(Name = "capacity")]
         public int Capacity { get; set; }
         public IActionResult OnGet()
         {
             using var context = this.contextFactory.CreateContext();
             this.Passenger = context.Passengers.ToList();
+
+            var bookingPassenger = context.BookingPassengers.FirstOrDefault(x => x.BookingId == this.BookingId);
+            bookingPassenger.BookingPassengerId = context.BookingPassengers
+                .Where(x => x.PassengerId == this.PassangerId[])
+                .ToList();
+            var booking = context.Bookings.FirstOrDefault(x => x.BookingId == this.BookingId);
+            booking.Customer = context.Bookings
+                .Where(x => x.CustomerId == this. )
+                .ToList();
             return this.Page();
         }
 
@@ -50,7 +62,7 @@ namespace PedaloWebApp.Pages.Bookings
 
             using var context = this.contextFactory.CreateContext();
 
-       
+        
                 foreach (var item in PassangerId) { 
                     var passengerbooking = new BookingPassenger
                     {

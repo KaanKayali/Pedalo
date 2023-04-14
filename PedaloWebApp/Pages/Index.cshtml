@@ -15,39 +15,21 @@
         <input type="button" value="Quick Create Booking" />
     </a>
 </div><br>
-<div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1em;" class="row">
+<div style="display: flex; flex-wrap: wrap;" class="row">
     @foreach (var item in Model.Pedalos)
     {
-        <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:10px; margin:10px; border-radius: 5px" class="col-3">
-            <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
-            <p>in @Html.DisplayFor(modelItem => item.Color) - Capacity: @Html.DisplayFor(modelItem => item.Capacity)</p>
-            <p>@Html.DisplayFor(modelItem => item.HourlyRate) Fr. per hour</p>
-            <a href="./Pedaloes/index">
-                <input type="button" value="🚤" />
-            </a>
+        <div style=" display: inline-block;" class="col-lg-3">
+            <div style="background-color: lightgray; border-radius: 5px; vertical-align: middle; margin: 5px; padding: 10px; height: 220px;" class="px-2">
+                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+                <p>in @Html.DisplayFor(modelItem => item.Color) - Capacity: @Html.DisplayFor(modelItem => item.Capacity)</p>
+                <p>@Html.DisplayFor(modelItem => item.HourlyRate) Fr. per hour</p>
+                <a href="./Pedaloes/index">
+                    <input type="button" value="🚤" />
+                </a>
+            </div>
+            
         </div>
     }
 </div>
 <br>
 <br>
-<div style="display: flex; flex-direction: column; flex-wrap: wrap;">
-    @foreach (var item in Model.Pedaloes)
-    {
-        <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:1em; border-radius: 5px">
-            <h4>@Html.DisplayFor(modelItem => item.PedaloName)</h4>
-            <p>Booked @Html.DisplayFor(modelItem => item.TotalBookings) times</p>
-        </div><br>
-    }
-</div>
-<br>
-<div style="display: flex; flex-direction: column; flex-wrap: wrap;">
-    @foreach (var item in Model.Customers)
-    {
-        <div style="display: inline-block; vertical-align: middle;">
-            <h5>@Html.DisplayFor(modelItem => item.CustomerName)</h5>
-            <p>has booked @Html.DisplayFor(modelItem => item.TotalCustomerBookings) times</p>
-        </div>
-
-        <br>
-    }
-</div>

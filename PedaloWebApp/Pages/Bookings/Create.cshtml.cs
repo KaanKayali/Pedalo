@@ -72,7 +72,16 @@ namespace PedaloWebApp.Pages.Bookings
                 context.Bookings.Add(booking);
                 context.SaveChanges();
                 var pedalo = context.Pedaloes.Where(x => x.PedaloId == booking.PedaloId).Single();
-                return this.RedirectToPage("AddPassenger", new { bookingid = booking.BookingId, capacity = pedalo.Capacity });
+
+                if(pedalo.Capacity != 1)
+                {
+                    return this.RedirectToPage("AddPassenger", new { bookingid = booking.BookingId, capacity = pedalo.Capacity });
+                }
+                else
+                {
+                    return this.RedirectToPage("Bookings/Index");
+
+                }
 
             }
             catch (Exception)

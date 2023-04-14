@@ -1,0 +1,36 @@
+﻿@page
+@model PedaloWebApp.Pages.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Dashboard</h1>
+    <a asp-page="./Bookings/Create">
+        <input type="button" value="Quick Create Booking" />
+    </a>
+</div><br>
+
+<div style="display: flex; flex-direction: column; flex-wrap: wrap;">
+    <h2>Top 5 most booked pedalos</h2>
+    @foreach (var item in Model.Pedaloes)
+    {
+        <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:1em; border-radius: 5px">
+            <h4>@Html.DisplayFor(modelItem => item.PedaloName)</h4>
+            <p>Booked @Html.DisplayFor(modelItem => item.TotalBookings) times</p>
+        </div><br>
+    }
+</div>
+<br>
+<div style="display: flex; flex-direction: column; flex-wrap: wrap;">
+    <h3>Top 5 most booking customers</h3>
+    @foreach (var item in Model.Customers)
+    {
+        <div style="display: inline-block; vertical-align: middle;">
+            <h5>@Html.DisplayFor(modelItem => item.CustomerName)</h5>
+            <p>has booked @Html.DisplayFor(modelItem => item.TotalCustomerBookings) times</p>
+        </div>
+
+        <br>
+    }
+</div>
