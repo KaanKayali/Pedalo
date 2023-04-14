@@ -19,6 +19,9 @@
 
         public IReadOnlyList<Booking> Bookings { get; set; }
         public IReadOnlyList<Pedalo> Pedalos { get; set; }
+        public IReadOnlyList<Passenger> Passengers { get; set; }
+
+        public IReadOnlyList<BookingPassengerAmount> bookingPassengerAmounts { get; set; }
 
         public IActionResult OnGet()
         {
@@ -28,6 +31,16 @@
                 .Include(x => x.Pedalo)
                 .ToList();
             this.Pedalos = context.Pedaloes.ToList();
+            this.Passengers = context.Passengers.ToList();
+
+            // load the passengers for each booking
+            foreach (var booking in this.Bookings)
+            {
+                booking.BookingPassengers = context.BookingPassengers
+                .Where(x => x.BookingId == booking.BookingId)
+                .ToList();
+            }
+
             return this.Page();
         }
 

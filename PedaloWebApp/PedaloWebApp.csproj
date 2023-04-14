@@ -13,12 +13,10 @@
 
   <ItemGroup>
     <Compile Remove="Core\Domain\Entities\Customer - Copy.cs" />
-    <Compile Remove="Pages\Bookings\Edit - Copy.cshtml.cs" />
     <Compile Remove="Pages\Bookings\Error.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Bookings\Edit - Copy.cshtml" />
     <Content Remove="Pages\Bookings\Error.cshtml" />
   </ItemGroup>
 

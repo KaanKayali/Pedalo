@@ -2,13 +2,15 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    <script>
-    </script>
+    <style>
+        body {
+            background_color: lightblue;
+        }
+    </style>
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Pedalos</h1>
     <a asp-page="./Bookings/Create">
         <input type="button" value="Quick Create Booking" />
     </a>
@@ -16,7 +18,7 @@
 <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1em;" class="row">
     @foreach (var item in Model.Pedalos)
     {
-        <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:1em; margin:1em; border-radius: 5px" class="col-3">
+        <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:10px; margin:10px; border-radius: 5px" class="col-3">
             <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
             <p>in @Html.DisplayFor(modelItem => item.Color) - Capacity: @Html.DisplayFor(modelItem => item.Capacity)</p>
             <p>@Html.DisplayFor(modelItem => item.HourlyRate) Fr. per hour</p>

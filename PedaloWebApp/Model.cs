@@ -1,4 +1,5 @@
 ﻿using PedaloWebApp.Core.Domain.Entities;
+using System;
 
 namespace PedaloWebApp
 {
@@ -13,6 +14,13 @@ namespace PedaloWebApp
     {
         public string CustomerName { get; set; }
         public int TotalCustomerBookings { get; set; }
+
+    }
+
+    public class BookingPassengerAmount
+    {
+        public Guid BookingId { get; set; }
+        public int TotalPassengers { get; set; }
 
     }
 }
