@@ -16,8 +16,8 @@
                 <p>Customer: @Model.CustomerName</p>
                 @for (int i = 0; i < Model.Capacity - 1; i++)
                 {
-                    <select asp-for="PassangerId[i]" class="form-control">
-                        <option value="-">-</option>
+                    <select asp-for="PassengerIds[i]" class="form-control">
+                        <option value="@Guid.Empty">-</option>
                         @foreach (var item in Model.Passenger)
                         {
                             <option value="@item.PassengerId">
