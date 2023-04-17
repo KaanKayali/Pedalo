@@ -2,11 +2,6 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    <style>
-        body {
-            background_color: lightblue;
-        }
-    </style>
 }
 
 <div class="text-center">
@@ -20,7 +15,7 @@
     {
         <div style=" display: inline-block;" class="col-lg-3">
             <div style="background-color: lightgray; border-radius: 5px; vertical-align: middle; margin: 5px; padding: 10px; height: 220px;" class="px-2">
-                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+                <h2 class="text-break">@Html.DisplayFor(modelItem => item.Name)</h2>
                 <p>in @Html.DisplayFor(modelItem => item.Color) - Capacity: @Html.DisplayFor(modelItem => item.Capacity)</p>
                 <p>@Html.DisplayFor(modelItem => item.HourlyRate) Fr. per hour</p>
                 <a href="./Pedaloes/index">

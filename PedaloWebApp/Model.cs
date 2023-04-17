@@ -20,6 +20,7 @@ namespace PedaloWebApp
     public class BookingPassengerAmount
     {
         public Guid BookingId { get; set; }
+        public string PassengerName { get; set; }
         public int TotalPassengers { get; set; }
 
     }

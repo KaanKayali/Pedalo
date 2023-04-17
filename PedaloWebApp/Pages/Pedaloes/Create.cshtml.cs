@@ -3,6 +3,7 @@ namespace PedaloWebApp.Pages.Pedaloes
     using System;
     using System.Drawing;
     using System.Linq;
+    using System.Xml.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using PedaloWebApp.Core.Domain.Entities;
@@ -20,6 +21,7 @@ namespace PedaloWebApp.Pages.Pedaloes
         [BindProperty]
         public PedaloCreateModel Pedalo { get; set; }
 
+        public string Error { get; set; }
 
 
         public IActionResult OnGet(Guid? id)
@@ -36,24 +38,36 @@ namespace PedaloWebApp.Pages.Pedaloes
             }
 
             using var context = this.contextFactory.CreateContext();
-            try
+
+            if (this.Pedalo.Name.Length <= 40)
             {
-                var pedalo = new Pedalo
+                try
                 {
-                    Name = this.Pedalo.Name,
-                    Color = this.Pedalo.Color,
-                    Capacity = this.Pedalo.Capacity,
-                    HourlyRate = this.Pedalo.HourlyRate
-                };
-                context.Pedaloes.Add(pedalo);
-                context.SaveChanges();
+                    var pedalo = new Pedalo
+                    {
+                        Name = this.Pedalo.Name,
+                        Color = this.Pedalo.Color,
+                        Capacity = this.Pedalo.Capacity,
+                        HourlyRate = this.Pedalo.HourlyRate
+                    };
+                    context.Pedaloes.Add(pedalo);
+                    context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return this.RedirectToPage("/Error");
+                }
+
+                return this.RedirectToPage("./Index");
             }
-            catch (Exception)
+            else
             {
-                return this.RedirectToPage("/Error");
+                Error = "Name too long";
             }
 
-            return this.RedirectToPage("./Index");
+            return this.Page();
+
+
         }
     }
 

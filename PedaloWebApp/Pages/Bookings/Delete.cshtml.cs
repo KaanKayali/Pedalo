@@ -5,8 +5,11 @@ namespace PedaloWebApp.Pages.Bookings
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using PedaloWebApp.Core.Domain.Entities;
     using PedaloWebApp.Core.Interfaces.Data;
+    using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
     public class DeleteModel : PageModel
     {
@@ -67,7 +70,17 @@ namespace PedaloWebApp.Pages.Bookings
 
             try
             {
-                context.Bookings.Remove(booking);
+
+            //context.BookingPassengers.RemoveRange(booking.BookingPassengers);
+            //context.BookingPassengers.
+            //context.CommandText = $"ALTER TABLE {BookingPassengers} DROP CONSTRAINT {constraintName}";
+            //await context.ExecuteNonQueryAsync();
+            //var bookingPassengers = await context.BookingPassengers.Where(bp => bp.BookingId == id).ToListAsync(); 
+            context.BookingPassengers.RemoveRange(context.BookingPassengers.Where(x => x.BookingId == this.Booking.BookingId));
+            context.Bookings.Remove(booking);
+            //var booking = context.Bookings.FirstOrDefault(x => x.BookingId == this.BookingId);
+            //var pedalo = context.Pedaloes.FirstOrDefault(x => x.PedaloId == booking.PedaloId);
+            //var capacity = pedalo.Capacity;
 
                 context.SaveChanges();
             }

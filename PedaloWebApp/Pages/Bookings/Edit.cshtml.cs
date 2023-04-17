@@ -1,5 +1,6 @@
 ﻿namespace PedaloWebApp.Pages.Bookings
 {
+    using PedaloWebApp.Pages.Passengers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -22,9 +23,23 @@
 
         [BindProperty]
         public List<Pedalo> Pedalos { get; set; }
+
+        public List<BookingPassengerAmount> Passengos { get; set; }
+
+        //[BindProperty]
+        //public List<Passenger> Passengers { get; set; }
         
+        //[FromQuery(Name = "bookingid")]
+        //public Guid BookingId { get; set; }
+
+        [BindProperty]
+        public Guid[] PassangerId { get; set; }
+
         [BindProperty]
         public List<Customer> Customer { get; set; }
+
+        public int Capacity { get; set; }
+        public string AmountPassengers { get; set; }
 
         public IActionResult OnGet(Guid? id)
         {
@@ -47,6 +62,20 @@
                     Customer = x.Customer,
                 })
                 .FirstOrDefault();
+
+            //var booking = context.Bookings.FirstOrDefault(x => x.BookingId == id);
+            var bookingpassenger = context.BookingPassengers.FirstOrDefault(x => x.BookingId == id);
+            var passenger = context.BookingPassengers.FirstOrDefault(x => x.PassengerId == bookingpassenger.PassengerId);
+            var amountpassenger = context.Passengers.FirstOrDefault(x => x.PassengerId == passenger.PassengerId);
+            //AmountPassengers = amountpassenger.Firstname;
+
+            this.Passengos = context.BookingPassengers.Select(x => new BookingPassengerAmount
+            {
+                BookingId = x.BookingId,
+                PassengerName = amountpassenger.Firstname,
+                TotalPassengers = context.Passengers.Count()
+            }).ToList();
+
             this.Pedalos = context.Pedaloes.ToList();
             this.Customer = context.Customers.ToList();
 

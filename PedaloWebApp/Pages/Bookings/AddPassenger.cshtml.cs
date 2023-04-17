@@ -60,34 +60,23 @@ namespace PedaloWebApp.Pages.Bookings
         public IActionResult OnPost()
         {
             
-
             using var context = this.contextFactory.CreateContext();
 
         
-                foreach (var item in PassangerId) { 
-                    var passengerbooking = new BookingPassenger
-                    {
-                        BookingId = this.BookingId,
-                        PassengerId = item,
-                    };
-                    context.BookingPassengers.Add(passengerbooking);
-                }
-              
+            foreach (var item in PassangerId) { 
+                var passengerbooking = new BookingPassenger
+                {
+                    BookingId = this.BookingId,
+                    PassengerId = item,
+                };
+                context.BookingPassengers.Add(passengerbooking);
+            }
+            
 
-                context.SaveChanges();
+            context.SaveChanges();
            
 
             return this.RedirectToPage("./Index");
-        }
-
-        public class BookingPassengerCreateModel
-        {
-            public Guid BookingPassengerId { get; set; }
-            public Guid BookingId { get; set; }
-            public Guid PassengerId { get; set; }
-            public int Capacity { get; set; }
-            public Booking Booking { get; set; }
-            public Passenger Passenger { get; set; }
         }
     }
 }
