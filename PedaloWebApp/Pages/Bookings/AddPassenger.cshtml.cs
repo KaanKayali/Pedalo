@@ -36,7 +36,7 @@ namespace PedaloWebApp.Pages.Bookings
         public Guid BookingId { get; set; }
 
         [BindProperty]
-        public Guid[] PassangerId { get; set; }
+        public Guid[] PassengerIds { get; set; }
 
         //[FromQuery(Name = "capacity")]
         public int Capacity { get; set; }
@@ -59,13 +59,22 @@ namespace PedaloWebApp.Pages.Bookings
             //var passenger = context.Passengers.Where(x => x.PassengerId == );
             //var selectedPassenger = customer.LastName;
 
-            this.PassangerId = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).Select(x => x.PassengerId).ToArray();
+            this.PassengerIds = new Guid[capacity];
+
+            var existingBookingPassenger = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).ToList();
+            int i = 0;
+            foreach (var passenger in existingBookingPassenger)
+            {
+                this.PassengerIds[i] = passenger.PassengerId;
+                i++;
+            }
+
             return this.Page();
         }
 
         public IActionResult OnPost()
         {
-            
+
             using var context = this.contextFactory.CreateContext();
             var existingBookingPassenger = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).ToList();
 
@@ -76,7 +85,8 @@ namespace PedaloWebApp.Pages.Bookings
 
             context.SaveChanges();
 
-            foreach (var item in PassangerId) { 
+            foreach (var item in PassengerIds.Where(x => x != Guid.Empty))
+            {
                 var passengerbooking = new BookingPassenger
                 {
                     BookingId = this.BookingId,
@@ -84,10 +94,10 @@ namespace PedaloWebApp.Pages.Bookings
                 };
                 context.BookingPassengers.Add(passengerbooking);
             }
-            
+
 
             context.SaveChanges();
-           
+
 
             return this.RedirectToPage("./Index");
         }
