@@ -75,11 +75,11 @@ namespace PedaloWebApp.Pages.Bookings
 
                 if(pedalo.Capacity != 1)
                 {
-                    return this.RedirectToPage("AddPassenger", new { bookingid = booking.BookingId, capacity = pedalo.Capacity });
+                    return this.RedirectToPage("AddPassenger", new { bookingid = booking.BookingId});
                 }
                 else
                 {
-                    return this.RedirectToPage("Bookings/Index");
+                    return this.RedirectToPage("Index");
 
                 }
 

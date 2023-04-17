@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using PedaloWebApp.Core.Domain.Entities;
     using PedaloWebApp.Core.Interfaces.Data;
+    using PedaloWebApp.Pages.Pedaloes;
 
     public class EditModel : PageModel
     {
@@ -21,25 +22,29 @@
         [BindProperty]
         public BookingEditModel Booking { get; set; }
 
-        [BindProperty]
-        public List<Pedalo> Pedalos { get; set; }
-
-        public List<BookingPassengerAmount> Passengos { get; set; }
-
         //[BindProperty]
-        //public List<Passenger> Passengers { get; set; }
+        //public List<Pedalo> Pedalos { get; set; }
+
+        public BookingPassengerAmount Passengos { get; set; }
+
+        [BindProperty]
+        public List<Passenger> Passengers { get; set; }
         
-        //[FromQuery(Name = "bookingid")]
-        //public Guid BookingId { get; set; }
+        [FromQuery(Name = "bookingid")]
+        public Guid BookingId { get; set; }
 
         [BindProperty]
         public Guid[] PassangerId { get; set; }
 
         [BindProperty]
+        public List<Passenger> Passsengers { get; set; }
+
+        [BindProperty]
         public List<Customer> Customer { get; set; }
 
         public int Capacity { get; set; }
-        public string AmountPassengers { get; set; }
+
+        public IReadOnlyList<Pedalo> Pedalos { get; set; }
 
         public IActionResult OnGet(Guid? id)
         {
@@ -63,18 +68,70 @@
                 })
                 .FirstOrDefault();
 
-            //var booking = context.Bookings.FirstOrDefault(x => x.BookingId == id);
-            var bookingpassenger = context.BookingPassengers.FirstOrDefault(x => x.BookingId == id);
-            var passenger = context.BookingPassengers.FirstOrDefault(x => x.PassengerId == bookingpassenger.PassengerId);
-            var amountpassenger = context.Passengers.FirstOrDefault(x => x.PassengerId == passenger.PassengerId);
-            //AmountPassengers = amountpassenger.Firstname;
 
-            this.Passengos = context.BookingPassengers.Select(x => new BookingPassengerAmount
-            {
-                BookingId = x.BookingId,
-                PassengerName = amountpassenger.Firstname,
-                TotalPassengers = context.Passengers.Count()
-            }).ToList();
+            //var booking = context.Bookings.FirstOrDefault(x => x.BookingId == id);
+            //var bookingpassenger = context.BookingPassengers.FirstOrDefault(x => x.BookingId == id);
+            //var passenger = context.BookingPassengers.FirstOrDefault(x => x.PassengerId == bookingpassenger.PassengerId);
+            //var amountpassenger = context.Passengers.FirstOrDefault(x => x.PassengerId == passenger.PassengerId);
+            //AmountPassengers = amountpassenger.BookingPassengers.ToList();
+
+            //this.Passengers = context.Passengers.ToList();
+
+            //this.Passengos = context.BookingPassengers.Select(x => new BookingPassengerAmount
+            //{
+            //    BookingId = x.BookingId,
+            //    TotalPassengers = context.Passengers.Count()
+            //}).ToList();
+
+            //thi
+            //s.Passengers = context.BookingPassengers.Where(x => x.BookingId == id).ToList();
+            //this.Passengos = context.BookingPassengers.Select(x => new BookingPassengerAmount{
+            //    BookingId = x.BookingId,
+            //    PassengerName = booking.BookingPassengers
+            //}).ToList();
+
+            //Passsengers = context.BookingPassengers.Where(x => x.BookingId == id).ToList();
+            //this.Passsengers = context.BookingPassengers.Where(x => x.BookingId == id).Select(x => new BookingPassengerAmount
+            //{
+            //    TotalPassengers = 34,
+            //    PassengerName = x.Passenger.Firstname
+            //}).ToList();
+            //for (int i = 0; i < )
+            //{
+            //
+            //}
+            //this.Passsengers = context.BookingPassengers.Where(x => x.BookingId == id && x.Passenger.Firstname == passenger.Passenger.Firstname).ToList();
+
+            //this.Passengos = context.BookingPassengers
+            //    .Where(x => x.BookingId == id)
+            //    .Select(x => new BookingPassengerAmount
+            //{
+            //    PassengerName = x.Passenger.Firstname,
+            //    TotalPassengers = x.Passenger.BookingPassengers.Count,
+            //})
+            //    .FirstOrDefault();
+            //
+            //var capacity = 
+
+            //this.Pedalo = context.Pedaloes
+            //    .Where(m => m.PedaloId == id)
+            //    .Select(x => new PedaloDeleteModel
+            //    {
+            //        PedaloId = x.PedaloId,
+            //        Name = x.Name,
+            //        Color = x.Color,
+            //        Capacity = x.Capacity,
+            //        HourlyRate = x.HourlyRate,
+            //        NumberOfBookings = x.Bookings.Count,
+            //    })
+            //    .FirstOrDefault();
+
+            //foreach (var item in Passsengers)
+            //{
+            //
+            //}
+
+            Capacity = this.Booking.Pedalo.Capacity;
 
             this.Pedalos = context.Pedaloes.ToList();
             this.Customer = context.Customers.ToList();
@@ -109,6 +166,7 @@
                 booking.StartDate = this.Booking.StartDate;
                 booking.EndDate = this.Booking.EndDate;
 
+
                 context.SaveChanges();
             }
             catch (Exception)
@@ -116,7 +174,10 @@
                 return this.RedirectToPage("/Error");
             }
 
-            return this.RedirectToPage("./Index");
+            this.Pedalos = context.Pedaloes.ToList();
+            this.Customer = context.Customers.ToList();
+
+            return this.Page();
         }
     }
 

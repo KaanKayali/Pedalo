@@ -23,7 +23,15 @@
             </div>
             <div class="form-group">
                 <input asp-for="Passenger.PassengerId" type="hidden" />
-                <input type="submit" value="Delete" class="btn btn-secondary" />
+                @if (Model.Passenger.NumberofBookings == 0)
+                {
+                    <input type="submit" value="Delete" class="btn btn-secondary" enabled />
+                }
+                else
+                {
+                    <p>Can not be deleted</p>
+                    <input type="submit" value="Delete" class="btn btn-secondary" disabled />
+                }
             </div>
         </form>
     </div>

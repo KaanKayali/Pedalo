@@ -28,13 +28,24 @@ namespace PedaloWebApp.Pages.Passengers
             }
 
             using var context = this.contextFactory.CreateReadOnlyContext();
+            //this.Passenger = context.BookingPassengers
+            //    .Where(m => m.PassengerId == id)
+            //    .Select(x => new PassengerDeleteModel
+            //    {
+            //        PassengerId = x.PassengerId,
+            //        Firstname = x.Passenger.Firstname,
+            //        Lastname = x.Passenger.Lastname,
+            //    })
+            //    .FirstOrDefault();
+
             this.Passenger = context.Passengers
                 .Where(m => m.PassengerId == id)
                 .Select(x => new PassengerDeleteModel
                 {
                     PassengerId = x.PassengerId,
                     Firstname = x.Firstname,
-                    Lastname = x.Lastname
+                    Lastname = x.Lastname,
+                    NumberofBookings = x.BookingPassengers.Count,
                 })
                 .FirstOrDefault();
 
@@ -81,5 +92,6 @@ namespace PedaloWebApp.Pages.Passengers
         public Guid PassengerId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        public int NumberofBookings { get; set; }
     }
 }

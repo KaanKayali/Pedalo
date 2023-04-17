@@ -41,6 +41,7 @@ namespace PedaloWebApp.Pages.Bookings
         //[FromQuery(Name = "capacity")]
         public int Capacity { get; set; }
         public string CustomerName { get; set; }
+        public string selectedPassenger { get; set; }
         public IActionResult OnGet()
         {
             using var context = this.contextFactory.CreateContext();
@@ -54,6 +55,11 @@ namespace PedaloWebApp.Pages.Bookings
             var customer = context.Customers.FirstOrDefault(x => x.CustomerId == booking.CustomerId);
             var Customername = customer.FirstName;
             CustomerName = Customername;
+
+            //var passenger = context.Passengers.Where(x => x.PassengerId == );
+            //var selectedPassenger = customer.LastName;
+
+            this.PassangerId = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).Select(x => x.PassengerId).ToArray();
             return this.Page();
         }
 
@@ -61,8 +67,15 @@ namespace PedaloWebApp.Pages.Bookings
         {
             
             using var context = this.contextFactory.CreateContext();
+            var existingBookingPassenger = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).ToList();
 
-        
+            foreach (var passenger in existingBookingPassenger)
+            {
+                context.BookingPassengers.Remove(passenger);
+            }
+
+            context.SaveChanges();
+
             foreach (var item in PassangerId) { 
                 var passengerbooking = new BookingPassenger
                 {
