@@ -36,7 +36,7 @@ namespace PedaloWebApp.Pages.Bookings
         public List<Passenger> Passenger { get; set; }
 
         [BindProperty]
-        public PassengerCreateModel Passengers { get; set; }
+        public string Error { get; set; }
 
 
         public IActionResult OnGet()
@@ -52,42 +52,54 @@ namespace PedaloWebApp.Pages.Bookings
         {
             if (!this.ModelState.IsValid)
             {
-                //return this.Page();
+                return this.Page();
                 
             }
 
             using var context = this.contextFactory.CreateContext();
-
-            try
+            if (this.Booking.EndDate > this.Booking.StartDate)
             {
-                /*DateTime dateTime = this.Booking.StartDate;
-                DateTime newDateTime = DateTime.ParseExact(dateTime.ToString("yyyy/MM/dd"), "yyyy/MM/dd", null);*/
-
-                var booking = new Booking { 
-                    CustomerId = this.Booking.CustomerId,
-                    PedaloId = this.Booking.PedaloId,
-                    StartDate = this.Booking.StartDate,
-                    EndDate = this.Booking.EndDate
-                };
-                context.Bookings.Add(booking);
-                context.SaveChanges();
-                var pedalo = context.Pedaloes.Where(x => x.PedaloId == booking.PedaloId).Single();
-
-                if(pedalo.Capacity != 1)
+                try
                 {
-                    return this.RedirectToPage("AddPassenger", new { bookingid = booking.BookingId});
+                    /*DateTime dateTime = this.Booking.StartDate;
+                    DateTime newDateTime = DateTime.ParseExact(dateTime.ToString("yyyy/MM/dd"), "yyyy/MM/dd", null);*/
+                
+                        var booking = new Booking
+                        {
+                            CustomerId = this.Booking.CustomerId,
+                            PedaloId = this.Booking.PedaloId,
+                            StartDate = this.Booking.StartDate,
+                            EndDate = this.Booking.EndDate
+                        };
+                        context.Bookings.Add(booking);
+                        context.SaveChanges();
+                        var pedalo = context.Pedaloes.Where(x => x.PedaloId == booking.PedaloId).Single();
+
+                        if (pedalo.Capacity != 1)
+                        {
+                            return this.RedirectToPage("AddPassenger", new { bookingid = booking.BookingId });
+                        }
+                        else
+                        {
+                            return this.RedirectToPage("Index");
+
+                        }
+
                 }
-                else
+                catch (Exception)
                 {
-                    return this.RedirectToPage("Index");
-
+                    return this.RedirectToPage("/Error");
                 }
-
             }
-            catch (Exception)
+            else
             {
-                return this.RedirectToPage("/Error");
+                this.Pedalos = context.Pedaloes.OrderBy(x => x.Name).ThenBy(x => x.Color).ToList();
+                this.Customer = context.Customers.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ToList();
+                this.Passenger = context.Passengers.OrderBy(x => x.Firstname).ThenBy(x => x.Lastname).ToList();
+                Error = "The enddate cannot take place before the startdate";
             }
+
+            return this.Page();
 
         }
     }
