@@ -5,8 +5,9 @@ namespace PedaloWebApp.Pages.Bookings
     using Newtonsoft.Json;
     using System.Net.Http;
     using System.Threading.Tasks;
-
-
+    using Newtonsoft.Json.Linq;
+    using NuGet.Configuration;
+    using System.Buffers.Text;
 
     public class WeatherModel : PageModel
     {
@@ -20,10 +21,10 @@ namespace PedaloWebApp.Pages.Bookings
         }
 
 
+        
+        public WeatherData weatherCode { get; set; }
 
-        public WeatherData WeatherData { get; set; }
-
-
+        public string WeatherDescription { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -39,17 +40,29 @@ namespace PedaloWebApp.Pages.Bookings
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                WeatherData = JsonConvert.DeserializeObject<WeatherData>(content);
+
+                //JObject root = JObject.Parse(content);
+                //weatherCode = root[Wea]
+                weatherCode = JsonConvert.DeserializeObject<WeatherData>(content);
+                //WeatherCodes = WeatherData.Daily.Select(d => d.Weather[0].WeatherCode).ToArray();
+                
             }
+
         }
     }
 
     public class WeatherData
     {
-        public WeatherCode[] Daily { get; set; }
+        public Daily daily { get; set; }
+        //public WeatherCode[] Daily { get; set; }
     }
 
-
+    public class Daily
+    {
+        public int[] weathercode { get; set; }
+        public double[] temperature_2m_max { get; set; }
+        public double[] temperature_2m_min { get; set; }
+    }
 
     public class WeatherCode
     {

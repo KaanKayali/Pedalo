@@ -7,31 +7,91 @@
 <h1>@ViewData["Title"]</h1>
 
 
-<h1>Weather Forecast</h1>
 
 
-
-@if (Model.WeatherData != null)
+@if (Model.weatherCode != null)
 {
-    <table>
-        <thead>
-            <tr>
-                <th>Weather Description</th>
-                <th>Max Temperature</th>
-                <th>Min Temperature</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var dailyWeather in Model.WeatherData.Daily)
-            {
+    for (int i = 0; i < Model.weatherCode.daily.weathercode.Length; i++)
+    {
+        <table class="table table-responsive-lg">
+            <thead>
                 <tr>
-                    <td>@dailyWeather.weatherCode</td>
-                    <td>@dailyWeather.Temperature2mMax</td>
-                    <td>@dailyWeather.Temperature2mMin</td>
+                    <th>Weather Description</th>
+                    <th>Max Temperature</th>
+                    <th>Min Temperature</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <tr>
+                    @switch (Model.weatherCode.daily.weathercode[i])
+                    {
+                        case 0:
+                                <td>Clear Sky</td>
+                        break;
+
+                        case 1:
+                        case 2:
+                        case 3:
+                                <td>partly cloudy</td>
+                        break;
+
+                        case 45:
+                        case 48:
+                                <td>Foggy</td>
+                        break;
+                    
+                        case 51:
+                        case 53:
+                        case 55:
+                        case 56:
+                        case 57:
+                                <td>Drizzle</td>
+                        break;
+                    
+                        case 61:
+                        case 63:
+                        case 65:
+                        case 66:
+                        case 67:
+                        case 80:
+                        case 81:
+                        case 82:
+                                <td>Rainy</td>
+                        break;
+                    
+                        case 71:
+                        case 73:
+                        case 75:
+                        case 85:
+                        case 86:
+                                <td>Snowy</td>
+                        break;
+                    
+                        case 95:
+                        case 96:
+                        case 99:
+                                <td>Thunderstorm</td>
+                        break;
+                    
+                    }
+                    <!--<td>@Model.WeatherDescription</td>-->
+                    
+                    <td>@Model.weatherCode.daily.temperature_2m_max[i] °C</td>
+                    <td>@Model.weatherCode.daily.temperature_2m_min[i] °C</td>
+                </tr>
+                @* @foreach (var dailyWeather in Model.weatherCode)
+                {
+                <tr>
+                <td>@dailyWeather.weatherCode</td>
+                <td>@dailyWeather.Temperature2mMax</td>
+                <td>@dailyWeather.Temperature2mMin</td>
+                </tr>
+                }*@
+            </tbody>
+        </table>
+    }
+    
+
 }
 else
 {
