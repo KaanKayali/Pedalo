@@ -1,0 +1,42 @@
+﻿@page
+@model PedaloWebApp.Pages.Bookings.WeatherModel
+@{
+    ViewData["Title"] = "Weather";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<h1>Weather Forecast</h1>
+
+
+
+@if (Model.WeatherData != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Weather Description</th>
+                <th>Max Temperature</th>
+                <th>Min Temperature</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dailyWeather in Model.WeatherData.Daily)
+            {
+                <tr>
+                    <td>@dailyWeather.weatherCode</td>
+                    <td>@dailyWeather.Temperature2mMax</td>
+                    <td>@dailyWeather.Temperature2mMin</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Loading weather data...</p>
+}
+
+
+

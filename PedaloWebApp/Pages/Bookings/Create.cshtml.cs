@@ -6,13 +6,17 @@ namespace PedaloWebApp.Pages.Bookings
     using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
+    using System.Net.Http;
     using System.Security.Cryptography.X509Certificates;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.FileSystemGlobbing.Internal;
     using PedaloWebApp.Core.Domain.Entities;
     using PedaloWebApp.Core.Interfaces.Data;
+    using System.Net.Http;
+    using Newtonsoft.Json;
 
     public class CreateModel : PageModel
     {
@@ -38,6 +42,8 @@ namespace PedaloWebApp.Pages.Bookings
         [BindProperty]
         public string Error { get; set; }
 
+        //public string url = "https://api.open-meteo.com/v1/forecast?latitude=47.37&longitude=8.55&daily=weathercode,temperature_2m_max,temperature_2m_min&forecast_days=3&timezone=auto";
+
 
         public IActionResult OnGet()
         {
@@ -46,6 +52,8 @@ namespace PedaloWebApp.Pages.Bookings
             this.Customer = context.Customers.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ToList();
             this.Passenger = context.Passengers.OrderBy(x => x.Firstname).ThenBy(x => x.Lastname).ToList();
             return this.Page();
+
+            
         }
 
         public IActionResult OnPost()
