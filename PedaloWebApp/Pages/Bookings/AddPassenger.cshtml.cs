@@ -41,11 +41,10 @@ namespace PedaloWebApp.Pages.Bookings
         //[FromQuery(Name = "capacity")]
         public int Capacity { get; set; }
         public string CustomerName { get; set; }
-        public string selectedPassenger { get; set; }
         public IActionResult OnGet()
         {
             using var context = this.contextFactory.CreateContext();
-            this.Passenger = context.Passengers.ToList();
+            this.Passenger = context.Passengers.ToList().OrderBy(x => x.Firstname).ToList();
 
             var booking = context.Bookings.FirstOrDefault(x => x.BookingId == this.BookingId);
             var pedalo = context.Pedaloes.FirstOrDefault(x => x.PedaloId == booking.PedaloId);
@@ -61,13 +60,16 @@ namespace PedaloWebApp.Pages.Bookings
 
             this.PassengerIds = new Guid[capacity];
 
-            var existingBookingPassenger = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).ToList();
+            var existingBookingPassenger = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).OrderBy(x => x.Passenger.Firstname).ToList();
             int i = 0;
             foreach (var passenger in existingBookingPassenger)
             {
                 this.PassengerIds[i] = passenger.PassengerId;
                 i++;
             }
+
+            //this.PassengerIds.OrderBy(x => );
+            //this.PassengerIds = context.Passengers.OrderBy(x => x.Firstname);
 
             return this.Page();
         }
@@ -77,7 +79,7 @@ namespace PedaloWebApp.Pages.Bookings
 
             using var context = this.contextFactory.CreateContext();
             var existingBookingPassenger = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).ToList();
-
+            existingBookingPassenger.OrderBy(x => x.Passenger.Firstname);
             foreach (var passenger in existingBookingPassenger)
             {
                 context.BookingPassengers.Remove(passenger);
@@ -85,7 +87,8 @@ namespace PedaloWebApp.Pages.Bookings
 
             context.SaveChanges();
 
-            foreach (var item in PassengerIds.Where(x => x != Guid.Empty))
+            var passengerids = PassengerIds.Where(x => x != Guid.Empty).ToList();
+            foreach (var item in passengerids)
             {
                 var passengerbooking = new BookingPassenger
                 {
