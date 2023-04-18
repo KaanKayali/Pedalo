@@ -44,7 +44,7 @@ namespace PedaloWebApp.Pages.Bookings
         public IActionResult OnGet()
         {
             using var context = this.contextFactory.CreateContext();
-            this.Passenger = context.Passengers.ToList().OrderBy(x => x.Firstname).ToList();
+            this.Passenger = context.Passengers.ToList().OrderBy(x => x.Firstname).ThenBy(x => x.Lastname).ToList();
 
             var booking = context.Bookings.FirstOrDefault(x => x.BookingId == this.BookingId);
             var pedalo = context.Pedaloes.FirstOrDefault(x => x.PedaloId == booking.PedaloId);
@@ -106,3 +106,4 @@ namespace PedaloWebApp.Pages.Bookings
         }
     }
 }
+
