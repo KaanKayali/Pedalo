@@ -60,7 +60,7 @@ namespace PedaloWebApp.Pages.Bookings
 
             this.PassengerIds = new Guid[capacity];
 
-            var existingBookingPassenger = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).OrderBy(x => x.Passenger.Firstname).ToList();
+            var existingBookingPassenger = context.BookingPassengers.Where(x => x.BookingId == this.BookingId).OrderBy(x => x.Passenger.Firstname).ThenBy(p => p.Passenger.Lastname).ToList();
             int i = 0;
             foreach (var passenger in existingBookingPassenger)
             {
