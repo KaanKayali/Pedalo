@@ -18,10 +18,10 @@
                 {
                     <select asp-for="PassengerIds[i]" class="form-control">
                         <option value="@Guid.Empty">-</option>
-                        @foreach (var item in Model.Passenger)
+                        @foreach (var item in Model.Passenger.OrderBy(x => x.Firstname).ThenBy(p => p.Lastname))
                         {
                             <option value="@item.PassengerId">
-                                @Html.DisplayFor(modelItem => item.Firstname)
+                                @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
                             </option>
                         }
                     </select>
