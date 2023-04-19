@@ -81,6 +81,7 @@
             Loadingcolumns = this.Bookings.Count;
         }
 
+        /*
         public ActionResult OnPostDownloadPDF()
         {
             using var context = this.contextFactory.CreateReadOnlyContext();
@@ -151,7 +152,7 @@
             .GeneratePdf();
 
             return File(pdfBytes, "application/pdf");
-        }
+        }*/
 
         public class BookingEditModel
         {
