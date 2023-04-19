@@ -35,4 +35,10 @@
     <PackageReference Include="QuestPDF" Version="2022.12.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Pages\Bookings\images\OIP.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
