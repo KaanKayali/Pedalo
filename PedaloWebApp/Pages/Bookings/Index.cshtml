@@ -105,6 +105,10 @@
                     <a asp-page="./Delete" asp-route-id="@Model.Bookings[i].BookingId">
                         <input type="button" value="Delete" class="btn" />
                     </a>
+                </td><td>
+                    <form method="post" asp-page-handler="DownloadPDF">
+                        <button class="btn">📄</button>
+                    </form>
                 </td>
             </tr>
         }

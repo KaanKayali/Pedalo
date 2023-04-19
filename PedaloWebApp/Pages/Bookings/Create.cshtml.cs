@@ -17,6 +17,8 @@ namespace PedaloWebApp.Pages.Bookings
     using PedaloWebApp.Core.Interfaces.Data;
     using System.Net.Http;
     using Newtonsoft.Json;
+    using QuestPDF.Drawing;
+    using QuestPDF.Fluent;
 
     public class CreateModel : PageModel
     {
@@ -110,6 +112,43 @@ namespace PedaloWebApp.Pages.Bookings
             return this.Page();
 
         }
+
+        /*public void GenerateBookingPdf(Booking booking)
+        {
+            var document = new Document();
+
+            document.AddSection(section =>
+            {
+                section
+                .PageMargins(20)
+                .Paragraphs(paragraphs =>
+                {
+                    paragraphs
+                     .Text("Booking Details", TextStyle.Default.Size(18))
+                     .LineBreak()
+                     .LineBreak()
+                     .Text($"Booking ID: {booking.BookingId}")
+                     .LineBreak()
+                     .Text($"Customer Name: {booking.CustomerName}")
+                     .LineBreak()
+                     .Text($"Room Type: {booking.RoomType}")
+                     .LineBreak()
+                     .Text($"Check-in: {booking.CheckIn.ToShortDateString()}")
+                     .LineBreak()
+                     .Text($"C   heck-out: {booking.CheckOut.ToShortDateString()}")
+                     .LineBreak()
+                     .Text($"Total Price: {booking.TotalPrice:C}")
+                     .LineBreak()
+                     .LineBreak()
+                     .Text("Thank you for your booking!")
+                     .LineBreak();
+                });
+            });
+
+            var bytes = document.GeneratePdf();
+            File.WriteAllBytes("BookingDetails.pdf", bytes); // Save the PDF to a file
+        }*/
+
     }
 
     public class BookingCreateModel
