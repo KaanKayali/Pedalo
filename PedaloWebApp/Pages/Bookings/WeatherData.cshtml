@@ -11,22 +11,25 @@
 
 @if (Model.weatherCode != null)
 {
-    for (int i = 0; i < Model.weatherCode.daily.weathercode.Length; i++)
-    {
-        <table class="table table-responsive-lg">
-            <thead>
+    <table class="table table-responsive-lg table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Weather Description</th>
+                <th>Max Temperature</th>
+                <th>Min Temperature</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.weatherCode.daily.weathercode.Length; i++)
+            {
                 <tr>
-                    <th>Weather Description</th>
-                    <th>Max Temperature</th>
-                    <th>Min Temperature</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
+                    <td>@Model.weatherCode.daily.time[i].ToString("yyyy-MM-dd")</td>
                     @switch (Model.weatherCode.daily.weathercode[i])
                     {
                         case 0:
-                                <td>Clear Sky</td>
+                            <td>Clear Sky</td>
+
                         break;
 
                         case 1:
@@ -39,7 +42,7 @@
                         case 48:
                                 <td>Foggy</td>
                         break;
-                    
+                
                         case 51:
                         case 53:
                         case 55:
@@ -47,7 +50,7 @@
                         case 57:
                                 <td>Drizzle</td>
                         break;
-                    
+                
                         case 61:
                         case 63:
                         case 65:
@@ -58,7 +61,7 @@
                         case 82:
                                 <td>Rainy</td>
                         break;
-                    
+                
                         case 71:
                         case 73:
                         case 75:
@@ -66,16 +69,16 @@
                         case 86:
                                 <td>Snowy</td>
                         break;
-                    
+                
                         case 95:
                         case 96:
                         case 99:
                                 <td>Thunderstorm</td>
                         break;
-                    
+                
                     }
                     <!--<td>@Model.WeatherDescription</td>-->
-                    
+                
                     <td>@Model.weatherCode.daily.temperature_2m_max[i] °C</td>
                     <td>@Model.weatherCode.daily.temperature_2m_min[i] °C</td>
                 </tr>
@@ -87,9 +90,10 @@
                 <td>@dailyWeather.Temperature2mMin</td>
                 </tr>
                 }*@
-            </tbody>
-        </table>
-    }
+            
+            }
+        </tbody>
+    </table>
     
 
 }
@@ -97,6 +101,11 @@ else
 {
     <p>Loading weather data...</p>
 }
+
+<div>
+    <a asp-page="Create">Back to creating the booking</a><br />
+    <a asp-page="Index">Back to List</a><br />
+</div>
 
 
 

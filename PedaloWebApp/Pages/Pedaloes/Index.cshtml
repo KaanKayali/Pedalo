@@ -59,3 +59,16 @@
     }
     </tbody>
 </table>
+
+@if (Model.Loadingcolumns != Model.Pedaloes.Count)
+{
+    <div>
+        <!--<button onclick="loadmore()">Load more</button>-->
+        <form method="post" asp-page-handler="Loadmore">
+            <button class="btn btn-light">Load more</button>
+        </form>
+    </div>
+
+}
+
+

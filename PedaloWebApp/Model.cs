@@ -1,11 +1,13 @@
 ﻿using PedaloWebApp.Core.Domain.Entities;
 using System;
+using System.Drawing;
 
 namespace PedaloWebApp
 {
     public class PedaloDashboard
     {
         public string PedaloName { get; set; }
+        public PedaloColor PedaloColor { get; set; }
         public int TotalBookings { get; set; }
 
     }

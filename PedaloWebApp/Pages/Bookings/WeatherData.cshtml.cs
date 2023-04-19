@@ -8,6 +8,7 @@ namespace PedaloWebApp.Pages.Bookings
     using Newtonsoft.Json.Linq;
     using NuGet.Configuration;
     using System.Buffers.Text;
+    using System;
 
     public class WeatherModel : PageModel
     {
@@ -59,6 +60,7 @@ namespace PedaloWebApp.Pages.Bookings
 
     public class Daily
     {
+        public DateTime[] time { get; set; }
         public int[] weathercode { get; set; }
         public double[] temperature_2m_max { get; set; }
         public double[] temperature_2m_min { get; set; }

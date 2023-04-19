@@ -17,6 +17,7 @@
     {
         <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:1em; border-radius: 5px">
             <h4>@Html.DisplayFor(modelItem => item.PedaloName)</h4>
+            <p style="color: @item.PedaloColor">●</p>
             <p>Booked @Html.DisplayFor(modelItem => item.TotalBookings) times</p>
         </div><br>
     }

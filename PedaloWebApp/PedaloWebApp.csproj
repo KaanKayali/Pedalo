@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Bookings\NewFolder\**" />
     <Compile Remove="Pages\NewFolder\**" />
+    <Content Remove="Pages\Bookings\NewFolder\**" />
     <Content Remove="Pages\NewFolder\**" />
+    <EmbeddedResource Remove="Pages\Bookings\NewFolder\**" />
     <EmbeddedResource Remove="Pages\NewFolder\**" />
+    <None Remove="Pages\Bookings\NewFolder\**" />
     <None Remove="Pages\NewFolder\**" />
   </ItemGroup>
 

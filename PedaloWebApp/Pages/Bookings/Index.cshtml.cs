@@ -21,9 +21,39 @@
         public IReadOnlyList<Pedalo> Pedalos { get; set; }
         public IReadOnlyList<Passenger> Passengers { get; set; }
 
-        public IReadOnlyList<BookingPassengerAmount> bookingPassengerAmounts { get; set; }
+        public int Loadingcolumns { get; set; }
 
         public IActionResult OnGet()
+        {
+            using var context = this.contextFactory.CreateReadOnlyContext();
+            this.Bookings = context.Bookings
+                .Include(x => x.Customer)
+                .Include(x => x.Pedalo)
+                .ToList();
+            this.Pedalos = context.Pedaloes.ToList();
+            this.Passengers = context.Passengers.ToList();
+
+            if (Bookings.Count > 10)
+            {
+                Loadingcolumns = 10;
+            }
+            else
+            {
+                Loadingcolumns = Bookings.Count;
+            }
+
+            // load the passengers for each booking
+            foreach (var booking in this.Bookings)
+            {
+                booking.BookingPassengers = context.BookingPassengers
+                .Where(x => x.BookingId == booking.BookingId)
+                .ToList();
+            }
+
+            return this.Page();
+        }
+
+        public void OnPostLoadmore()
         {
             using var context = this.contextFactory.CreateReadOnlyContext();
             this.Bookings = context.Bookings
@@ -41,7 +71,7 @@
                 .ToList();
             }
 
-            return this.Page();
+            Loadingcolumns = this.Bookings.Count;
         }
 
     }

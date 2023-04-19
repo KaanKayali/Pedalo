@@ -2,6 +2,12 @@
 @model PedaloWebApp.Pages.Bookings.IndexModel
 @{
     ViewData["Title"] = "Bookings";
+    /*int loadingamount = 10;
+    <script>
+        function loadmore(){
+            loadingamount = '@Model.Bookings.Count';
+        }
+    </script>*/
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -36,7 +42,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Bookings)
+        @*foreach (var item in Model.Bookings)
         {
             <tr>
                 <td>
@@ -68,7 +74,51 @@
                     </a>
                 </td>
             </tr>
+        }*@
+        @for (int i = 0; i < Model.Loadingcolumns; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Bookings[i].Customer.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Bookings[i].Pedalo.Name)
+                </td>
+                <td>
+                    @Model.Bookings[i].StartDate.ToString("yyyy-MM-dd HH:mm:ss")
+                </td>
+                <td>
+                    @(Model.Bookings[i].EndDate != null ? Model.Bookings[i].EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Bookings[i].Pedalo.Capacity)
+                </td>
+                <td>
+                    @Model.Bookings[i].BookingPassengers.Count
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@Model.Bookings[i].BookingId">
+                        <input type="button" value="Edit" class="btn" />
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="./Delete" asp-route-id="@Model.Bookings[i].BookingId">
+                        <input type="button" value="Delete" class="btn" />
+                    </a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+@if (Model.Loadingcolumns != Model.Bookings.Count)
+{
+    <div>
+        <!--<button onclick="loadmore()">Load more</button>-->
+        <form method="post" asp-page-handler="Loadmore">
+            <button class="btn btn-light">Load more</button>
+        </form>
+    </div>
+
+}
 
