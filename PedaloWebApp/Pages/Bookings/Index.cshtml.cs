@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Mail;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,8 @@
     using QuestPDF.Fluent;
     using QuestPDF.Helpers;
     using QuestPDF.Infrastructure;
+    using MailKit.Net.Smtp;
+    using MimeKit;
 
     public class IndexModel : PageModel
     {
@@ -25,8 +29,6 @@
         public IReadOnlyList<Pedalo> Pedalos { get; set; }
         public IReadOnlyList<Passenger> Passengers { get; set; }
 
-        [BindProperty]
-        public BookingEditModel Booking { get; set; }
 
         public int Loadingcolumns { get; set; }
 
@@ -60,6 +62,7 @@
             return this.Page();
         }
 
+        
         public void OnPostLoadmore()
         {
             using var context = this.contextFactory.CreateReadOnlyContext();
@@ -70,14 +73,15 @@
             this.Pedalos = context.Pedaloes.ToList();
             this.Passengers = context.Passengers.ToList();
 
+            
             // load the passengers for each booking
-            foreach (var booking in this.Bookings)
+            foreach (var booking in this.Bookings)
             {
                 booking.BookingPassengers = context.BookingPassengers
                 .Where(x => x.BookingId == booking.BookingId)
                 .ToList();
             }
-
+        
             Loadingcolumns = this.Bookings.Count;
         }
 

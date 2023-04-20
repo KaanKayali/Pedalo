@@ -37,6 +37,10 @@
                 <a asp-page="./Create">
                     <input type="button" value="Create" class="btn btn-secondary" />
                 </a>
+            </th><th>
+                <!--<a asp-page="./Email" target="_blank">
+                    <input type="button" value="📧" class="btn btn-secondary" />
+                </a>-->
             </th>
 
         </tr>
@@ -107,14 +111,15 @@
                     </a>
                 </td>
                 <td>
-                    <a target="_blank" asp-page="./DownloadPDF" asp-route-bookingId="@Model.Bookings[i].BookingId">
-                        <button class="btn">📄</button>
+                    <a target="_blank" asp-page="./DownloadPDF">
+                        <input type="button" value="📄" class="btn">
                     </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
 
 @if (Model.Loadingcolumns != Model.Bookings.Count)
 {
@@ -123,7 +128,11 @@
         <form method="post" asp-page-handler="Loadmore">
             <button class="btn btn-light">Load more</button>
         </form>
-    </div>
+     </div>
 
 }
+
+
+
+
 

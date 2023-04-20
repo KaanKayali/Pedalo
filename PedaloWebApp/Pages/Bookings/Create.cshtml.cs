@@ -19,6 +19,8 @@ namespace PedaloWebApp.Pages.Bookings
     using Newtonsoft.Json;
     using QuestPDF.Drawing;
     using QuestPDF.Fluent;
+    using Microsoft.EntityFrameworkCore;
+    using MimeKit;
 
     public class CreateModel : PageModel
     {
@@ -67,7 +69,7 @@ namespace PedaloWebApp.Pages.Bookings
             }
 
             using var context = this.contextFactory.CreateContext();
-            if (this.Booking.EndDate > this.Booking.StartDate)
+            if (this.Booking.EndDate > this.Booking.StartDate || this.Booking.EndDate == null)
             {
                 try
                 {
@@ -148,6 +150,8 @@ namespace PedaloWebApp.Pages.Bookings
             var bytes = document.GeneratePdf();
             File.WriteAllBytes("BookingDetails.pdf", bytes); // Save the PDF to a file
         }*/
+
+        
 
     }
 

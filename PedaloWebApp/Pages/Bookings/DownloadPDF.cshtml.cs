@@ -10,6 +10,8 @@ namespace PedaloWebApp.Pages.Bookings
     using System;
     using System.Drawing;
     using System.Linq;
+    using static System.Formats.Asn1.AsnWriter;
+
     public class DownloadPDFModel : PageModel
     {
         private readonly IDbContextFactory contextFactory;
@@ -19,6 +21,8 @@ namespace PedaloWebApp.Pages.Bookings
             this.contextFactory = contextFactory;
         }
         public string today_string = DateTime.Now.ToString("yyyy-MM-dd");
+
+
         public IActionResult OnGet([FromQuery] Guid bookingId)
         {
             using var context = this.contextFactory.CreateReadOnlyContext();
@@ -35,6 +39,8 @@ namespace PedaloWebApp.Pages.Bookings
 
             int ColorBorder = Color.FromName($"{Color.Gray}").ToArgb();
             string ColorHexBorder = string.Format("{0:x6}", ColorBorder);
+
+            int i = 0;
 
 
             // code in your main method
@@ -55,7 +61,7 @@ namespace PedaloWebApp.Pages.Bookings
                     {
                         x.Item().Text("Booking " + today_string).FontSize(18);
                         x.Item().Text("id: " + booking.BookingId).Bold().FontSize(18);
-                        x.Item().BorderTop(1).BorderColor(ColorHexBorder);
+                        x.Item().BorderTop(1);//.BorderColor(ColorHexBorder);
                         x.Item().Text("Customer:").ExtraBlack().FontSize(16);
                         x.Item().Text("Name: " + booking.Customer.FirstName + " " + booking.Customer.LastName + "\n").FontSize(14);
 
@@ -79,10 +85,20 @@ namespace PedaloWebApp.Pages.Bookings
                         x.Item().Text("Passengers:").ExtraBlack().FontSize(16);
                         if (booking.BookingPassengers.Count != 0)
                         {
-                            foreach (var item in booking.BookingPassengers.OrderBy(x => x.Passenger.Firstname).ThenBy(p => p.Passenger.Lastname))
+                            foreach (var item in booking.BookingPassengers.OrderBy(x => x.Passenger.Firstname).ThenBy(p => p.Passenger.Lastname)) 
                             {
-                                x.Item().Text("-" + item.Passenger.Firstname + " " + item.Passenger.Lastname).FontSize(14);
-                                //text.Span("-" + item.Passenger.Firstname + " " + item.Passenger.Lastname);
+                                //container(p =>
+                                //{
+                                //    while (i < 5)
+                                //    {
+                                          x.Item().Text("-" + item.Passenger.Firstname + " " + item.Passenger.Lastname).FontSize(14);
+                                          //text.Span("-" + item.Passenger.Firstname + " " + item.Passenger.Lastname);
+                                //        i++;
+                                //    }
+                                //});
+                                
+
+
                             }
                         }
                         else
@@ -91,27 +107,40 @@ namespace PedaloWebApp.Pages.Bookings
                         }
                         x.Item().Text("\n").FontSize(14);
 
-                        //x.Item().Image("images/OIP.jpg", ImageScaling.Resize);
+                        //x.Item().Image("./Pages/Bookings/images/OIP.jpg");
                     });
 
-                    page.Footer()
-                        .AlignRight()
-                        //.Column(x =>
-                        //{
-                        //    x.Item().Text("© 2020 - Pedalo Verleih").FontSize(18);
-                        //    x.Item().Text("RentAPedalo").FontSize(18);
-                        //    x.Item().BorderBottom(2).BorderColor(ColorHexBorder);
-                        //})
-                        .Text(x =>
+                page.Footer()
+                    .AlignRight()
+                    //.Row(row =>
+                    //{
+                    //    row.ConstantItem(100)
+                    //        .Background("#DDD")
+                    //        .Padding(10)
+                    //        .ExtendVertical()
+                    //        .Text("This column is 100 points wide");
+                    .Column(x =>
+                    {
+                        x.Item().Text("© 2020 - Pedalo Verleih").FontSize(18);
+                        x.Item().Text("RentAPedalo").FontSize(18);
+                        x.Item().BorderBottom(2);//.BorderColor(ColorHexBorder);
+                        x.Item().Text(x =>
                         {
                             x.CurrentPageNumber();
                             x.Span("/");
                             x.TotalPages();
-                        })
-                        ;
-                        
+                        });
+                    });
 
-                });
+
+                 //container
+                 //    .Width(1, Unit.Inch)
+                 //    .Image("./Pages/Bookings/images/OIP.jpg", ImageScaling.Resize);
+                 //        
+                 //
+                 });
+
+               
             })
             .GeneratePdf();
 

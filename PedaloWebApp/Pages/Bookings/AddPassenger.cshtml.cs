@@ -14,6 +14,8 @@ namespace PedaloWebApp.Pages.Bookings
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.FileSystemGlobbing.Internal;
     using PedaloWebApp.Core.Interfaces.Data;
+    using MimeKit;
+    using System.Threading.Tasks;
 
     public class CreatePassengerModel : PageModel
     {
@@ -74,7 +76,7 @@ namespace PedaloWebApp.Pages.Bookings
             return this.Page();
         }
 
-        public IActionResult OnPost()
+        public void OnPost()
         {
 
             using var context = this.contextFactory.CreateContext();
@@ -101,7 +103,62 @@ namespace PedaloWebApp.Pages.Bookings
 
             context.SaveChanges();
 
+            SendEmailAsync();
+        }
 
+        public async Task<IActionResult> SendEmailAsync()
+        {
+
+
+            // Create a new MimeMessage
+            var message = new MimeMessage();
+
+
+
+            // Set the "from" address
+            message.From.Add(new MailboxAddress("Kaan", "20kaan05@gmail.com"));
+
+
+
+            // Set the "to" address
+            message.To.Add(new MailboxAddress("Kaan", "20kaan05@gmail.com"));
+
+
+
+            // Set the subject of the email
+            message.Subject = "Booking confirmation";
+
+
+
+            // Set the body of the email
+            message.Body = new TextPart("plain")
+            {
+                Text = "Booking ID:" + Bookings[0].BookingId + "\nCustomer: " + Bookings[0].Customer.FirstName + "\nPedalo: " + Bookings[0].Pedalo.Name + "\nStart date: " + Bookings[0].StartDate + "\nEnd date:" + Bookings[0].EndDate
+
+            };
+
+
+
+            // Connect to the SMTP server
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                // Replace "smtp.example.com" with the hostname of your SMTP server
+                await client.ConnectAsync("smtp.gmail.com", 587, false);
+
+
+                // Replace "your.email@example.com" and "your-password" with your actual email address and password
+                await client.AuthenticateAsync("20kaan05@gmail.com", "cozqcaueuhuthuic"); //Email (App passwort)
+
+
+                // Send the email
+                await client.SendAsync(message);
+
+
+                // Disconnect from the SMTP server
+                await client.DisconnectAsync(true);
+            }
+
+            // Redirect to a success page
             return this.RedirectToPage("./Index");
         }
     }
