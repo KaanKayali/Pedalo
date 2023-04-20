@@ -15,14 +15,12 @@ namespace PedaloWebApp.Pages.Bookings
         private readonly IHttpClientFactory httpClientFactory;
 
 
-
         public WeatherModel(IHttpClientFactory httpClientFactory)
         {
             this.httpClientFactory = httpClientFactory;
         }
 
-
-        
+                
         public WeatherData weatherCode { get; set; }
 
         public string WeatherDescription { get; set; }
@@ -31,11 +29,7 @@ namespace PedaloWebApp.Pages.Bookings
         {
             var client = httpClientFactory.CreateClient();
 
-
-
             string apiUrl = "https://api.open-meteo.com/v1/forecast?latitude=47.37&longitude=8.55&daily=weathercode,temperature_2m_max,temperature_2m_min&forecast_days=3&timezone=auto";
-
-
 
             var response = await client.GetAsync(apiUrl);
             if (response.IsSuccessStatusCode)
