@@ -14,6 +14,8 @@ namespace PedaloWebApp.Pages.Bookings
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.FileSystemGlobbing.Internal;
     using PedaloWebApp.Core.Interfaces.Data;
+    using MimeKit;
+    using System.Threading.Tasks;
 
     public class CreatePassengerModel : PageModel
     {
@@ -101,8 +103,7 @@ namespace PedaloWebApp.Pages.Bookings
 
             context.SaveChanges();
 
-
-            return this.RedirectToPage("./Index");
+            return this.RedirectToPage("SendEmail", new { bookingid = this.BookingId });
         }
     }
 }

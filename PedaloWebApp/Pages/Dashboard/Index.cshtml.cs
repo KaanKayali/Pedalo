@@ -30,6 +30,7 @@
             this.Pedaloes = context.Pedaloes.Select(x => new PedaloDashboard
             {
                 PedaloName = x.Name,
+                PedaloColor = x.Color,
                 TotalBookings = x.Bookings.Count(),
             }).OrderByDescending(x => x.TotalBookings).Take(5).ToList();
             this.Pedalos = context.Pedaloes.ToList();

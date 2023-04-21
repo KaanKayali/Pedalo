@@ -19,11 +19,29 @@
 
         public IReadOnlyList<Passenger> Passenger { get; set; }
 
+        public int Loadingcolumns { get; set; }
+
         public IActionResult OnGet()
         {
             using var context = this.contextFactory.CreateReadOnlyContext();
             this.Passenger = context.Passengers.ToList();
+            if (Passenger.Count > 10)
+            {
+                Loadingcolumns = 10;
+            }
+            else
+            {
+                Loadingcolumns = Passenger.Count;
+            }
             return this.Page();
+        }
+
+        public void OnPostLoadmore()
+        {
+            using var context = this.contextFactory.CreateReadOnlyContext();
+            this.Passenger = context.Passengers.ToList();
+
+            Loadingcolumns = this.Passenger.Count;
         }
     }
 }

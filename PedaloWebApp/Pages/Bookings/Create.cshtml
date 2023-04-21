@@ -61,7 +61,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Booking.EndDate" class="control-label"></label>
-                <input asp-for="Booking.EndDate" class="form-control" />
+                <input asp-for="Booking.EndDate" class="form-control" min="Booking.StartDate"/>
+                <p style="color: red">@Model.Error</p>
             </div>
             <div class="form-group">
                 <label asp-for="Booking.Pedalo" class="control-label"></label>
@@ -111,6 +112,7 @@
 </div>
 
 <div>
+    <a asp-page="WeatherData">See the weather in the next 3 days</a><br>
     <a asp-page="Index">Back to List</a>
 </div>
 

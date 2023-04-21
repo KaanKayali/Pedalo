@@ -1,13 +1,13 @@
 ﻿@page
 @model PedaloWebApp.Pages.Dashboard.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Dashboard";
 }
 
 <div class="text-center">
     <h1 class="display-4">Dashboard</h1>
     <a asp-page="./Bookings/Create">
-        <input type="button" value="Quick Create Booking" />
+        <input type="button" value="Quick Create Booking" class="btn btn-light" />
     </a>
 </div><br>
 
@@ -17,6 +17,7 @@
     {
         <div style="display: inline-block; vertical-align: middle; background-color: lightgray; padding:1em; border-radius: 5px">
             <h4>@Html.DisplayFor(modelItem => item.PedaloName)</h4>
+            <p style="color: @item.PedaloColor">●</p>
             <p>Booked @Html.DisplayFor(modelItem => item.TotalBookings) times</p>
         </div><br>
     }

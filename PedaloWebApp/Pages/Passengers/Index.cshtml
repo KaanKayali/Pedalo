@@ -23,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Passenger)
+        @*@foreach (var item in Model.Passenger)
         {
             <tr>
                 <td>
@@ -43,7 +43,41 @@
                     </a>
                 </td>
             </tr>
+        }*@
+        @for (int i = 0; i < Model.Loadingcolumns; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Passenger[i].Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Passenger[i].Lastname)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@Model.Passenger[i].PassengerId">
+                        <input type="button" value="Edit" class="btn" />
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="./Delete" asp-route-id="@Model.Passenger[i].PassengerId">
+                        <input type="button" value="Delete" class="btn" />
+                    </a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+@if (Model.Loadingcolumns != Model.Passenger.Count)
+{
+    <div>
+        <!--<button onclick="loadmore()">Load more</button>-->
+        <form method="post" asp-page-handler="Loadmore">
+            <button class="btn btn-light">Load more</button>
+        </form>
+    </div>
+
+}
+
+
 

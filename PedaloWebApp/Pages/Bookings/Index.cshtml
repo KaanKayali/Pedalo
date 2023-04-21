@@ -2,6 +2,12 @@
 @model PedaloWebApp.Pages.Bookings.IndexModel
 @{
     ViewData["Title"] = "Bookings";
+        /*int loadingamount = 10;
+            <script>
+            function loadmore(){
+            loadingamount = '@Model.Bookings.Count';
+    }
+    </script>*/
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -29,46 +35,118 @@
             </th>
             <th>
                 <a asp-page="./Create">
-                    <input type="button" value="Create" class="btn btn-secondary"/>
+                    <input type="button" value="Create" class="btn btn-secondary" />
                 </a>
+            </th><th>
+                <!--<a asp-page="./Email" target="_blank">
+                    <input type="button" value="📧" class="btn btn-secondary" />
+                </a>
+                <form method="post" asp-page-handler="SendEmail">
+                    <button class="btn">📧</button>
+                </form>-->
             </th>
 
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Bookings)
+        @*foreach (var item in Model.Bookings)
+        {
+        <tr>
+        <td>
+        @Html.DisplayFor(modelItem => item.Customer.FirstName)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Pedalo.Name)
+        </td>
+        <td>
+        @item.StartDate.ToString("yyyy-MM-dd HH:mm:ss")
+        </td>
+        <td>
+        @(item.EndDate != null ? item.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Pedalo.Capacity)
+        </td>
+        <td>
+        @item.BookingPassengers.Count
+        </td>
+        <td>
+        <a asp-page="./Edit" asp-route-id="@item.BookingId">
+        <input type="button" value="Edit" class="btn" />
+        </a>
+        </td>
+        <td>
+        <a asp-page="./Delete" asp-route-id="@item.BookingId">
+        <input type="button" value="Delete" class="btn" />
+        </a>
+        </td>
+        </tr>
+        }*@
+        @for (int i = 0; i < Model.Loadingcolumns; i++)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                    @Html.DisplayFor(modelItem => Model.Bookings[i].Customer.FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Pedalo.Name)
+                    @Html.DisplayFor(modelItem => Model.Bookings[i].Pedalo.Name)
                 </td>
                 <td>
-                    @item.StartDate.ToString("yyyy-MM-dd HH:mm:ss")
+                    @Model.Bookings[i].StartDate.ToString("yyyy-MM-dd HH:mm:ss")
                 </td>
                 <td>
-                    @(item.EndDate != null ? item.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")
+                    @(Model.Bookings[i].EndDate != null ? Model.Bookings[i].EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Pedalo.Capacity)
+                    @Html.DisplayFor(modelItem => Model.Bookings[i].Pedalo.Capacity)
                 </td>
                 <td>
-                    @item.BookingPassengers.Count
+                    @Model.Bookings[i].BookingPassengers.Count
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.BookingId">
+                    <a asp-page="./Edit" asp-route-id="@Model.Bookings[i].BookingId">
                         <input type="button" value="Edit" class="btn" />
                     </a>
                 </td>
                 <td>
-                    <a asp-page="./Delete" asp-route-id="@item.BookingId">
+                    <a asp-page="./Delete" asp-route-id="@Model.Bookings[i].BookingId">
                         <input type="button" value="Delete" class="btn" />
                     </a>
+                </td>
+                <td>
+                    <a target="_blank" asp-page="./DownloadPDF" asp-route-id="@Model.Bookings[i].BookingId">
+                        <input type="button" value="📄" class="btn">
+                    </a>
+                </td>
+                <td>
+                    <!--<form method="post" asp-page-handler="SendEmail">
+                        <button class="btn">📧</button>
+                    </form>-->
+                    <a target="_blank" asp-page="./SendEmail" asp-route-id="@Model.Bookings[i].BookingId">
+                        <input type="button" value="📧" class="btn">
+                    </a>
+                    <!--<form method="post" asp-page-handler="Email">
+                        <button class="btn">📧</button>
+                    </form>-->
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+@if (Model.Loadingcolumns != Model.Bookings.Count)
+{
+    <div>
+        <!--<button onclick="loadmore()">Load more</button>-->
+        <form method="post" asp-page-handler="Loadmore">
+            <button class="btn btn-light">Load more</button>
+        </form>
+     </div>
+
+}
+
+
+
+
 

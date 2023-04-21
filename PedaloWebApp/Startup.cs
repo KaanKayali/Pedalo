@@ -1,5 +1,7 @@
 ﻿namespace PedaloWebApp
 {
+    using System;
+    using System.Net.Http;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -20,6 +22,9 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add HttpClientFactory
+            services.AddHttpClient();
+
             services.AddRazorPages();
 
             // Use this factory to create the database context.
@@ -53,4 +58,9 @@
             });
         }
     }
+    
+
+
+
+  
 }

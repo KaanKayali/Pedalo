@@ -7,7 +7,7 @@
 <div class="text-center">
     <h1 class="display-4">Pedalos</h1>
     <a asp-page="./Bookings/Create">
-        <input type="button" value="Quick Create Booking" />
+        <input type="button" value="Quick Create Booking" class="btn btn-light" />
     </a>
 </div><br>
 <div style="display: flex; flex-wrap: wrap;" class="row">
@@ -15,12 +15,12 @@
     {
         <div style=" display: inline-block;" class="col-lg-3">
             <div style="background-color: lightgray; border-radius: 5px; vertical-align: middle; margin: 5px; padding: 10px;" class="px-2">
-                <h2 class="text-break">@Html.DisplayFor(modelItem => item.Name)</h2>
+                <h2 class="text-break" style="color: dimgrey">@Html.DisplayFor(modelItem => item.Name)</h2>
                 <p>in @Html.DisplayFor(modelItem => item.Color) - Capacity: @Html.DisplayFor(modelItem => item.Capacity)</p>
-                <p style="color: @item.Color">■</p>
+                <p style="color: @item.Color">◖■◗</p>
                 <p>@Html.DisplayFor(modelItem => item.HourlyRate) Fr. per hour</p>
                 <a href="./Pedaloes/index">
-                    <input type="button" value="🚤" />
+                    <input type="button" value="🚤" class="btn btn-light" />
                 </a>
             </div>
             
