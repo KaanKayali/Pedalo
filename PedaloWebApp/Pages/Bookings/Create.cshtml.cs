@@ -15,7 +15,6 @@ namespace PedaloWebApp.Pages.Bookings
     using Microsoft.Extensions.FileSystemGlobbing.Internal;
     using PedaloWebApp.Core.Domain.Entities;
     using PedaloWebApp.Core.Interfaces.Data;
-    using System.Net.Http;
     using Newtonsoft.Json;
     using QuestPDF.Drawing;
     using QuestPDF.Fluent;

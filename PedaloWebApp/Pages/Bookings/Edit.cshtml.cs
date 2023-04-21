@@ -9,6 +9,8 @@
     using PedaloWebApp.Core.Domain.Entities;
     using PedaloWebApp.Core.Interfaces.Data;
     using PedaloWebApp.Pages.Pedaloes;
+    using System.IO;
+    using OfficeOpenXml;
 
     public class EditModel : PageModel
     {
@@ -24,20 +26,6 @@
 
         //[BindProperty]
         //public List<Pedalo> Pedalos { get; set; }
-
-        public BookingPassengerAmount Passengos { get; set; }
-
-        [BindProperty]
-        public List<Passenger> Passengers { get; set; }
-        
-        [FromQuery(Name = "bookingid")]
-        public Guid BookingId { get; set; }
-
-        [BindProperty]
-        public Guid[] PassangerId { get; set; }
-
-        [BindProperty]
-        public List<Passenger> Passsengers { get; set; }
 
         [BindProperty]
         public List<Customer> Customer { get; set; }
@@ -179,6 +167,8 @@
 
             return this.Page();
         }
+
+        
     }
 
     public class BookingEditModel

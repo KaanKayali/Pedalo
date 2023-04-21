@@ -20,15 +20,24 @@ namespace PedaloWebApp.Pages.Bookings
         {
             this.contextFactory = contextFactory;
         }
+
         public string today_string = DateTime.Now.ToString("yyyy-MM-dd");
 
+        [BindProperty]
+        public BookingEditModel Booking { get; set; }
 
-        public IActionResult OnGet([FromQuery] Guid bookingId)
+
+        public IActionResult OnGet(Guid? id)
         {
+            if (id == null)
+            {
+                return this.BadRequest();
+            }
+
             using var context = this.contextFactory.CreateReadOnlyContext();
 
             var booking = context.Bookings
-                .Where(m => m.BookingId == bookingId)
+                .Where(m => m.BookingId == id)
                 .Include(x => x.BookingPassengers).ThenInclude(x => x.Passenger)
                 .Include(x => x.Customer)
                 .Include(x => x.Pedalo)
